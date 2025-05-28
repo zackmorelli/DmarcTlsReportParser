@@ -15,6 +15,16 @@ Designed to run daily as a cron job or scheduled task, this tool supports:
 - WHOIS lookups for DMARC source IPs, so you can see who and where someone is trying to spoof your domains
 - Clean and readable email reports
 
+## Example Summary Output
+
+Here's what a typical email summary looks like:
+
+DMARC Summary
+![DMARC Summary Screenshot](dmarc-summary-example.png)
+
+TLS-RPT Summary
+![TLS-RPT Summary Screenshot](tls-rpt-summary-example.png)
+
 ## Requirements
 
 - .NET 8 Runtime (Framework-dependent deployment)

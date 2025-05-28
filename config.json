@@ -1,0 +1,31 @@
+﻿{
+  "ReportSavePath": "/XXXXXXXXXXXXXXXXXXXXX",
+  "ExtractedReportsPath": "/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "GeneratedSummariesPath": "/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "imapRetrievalAccounts": [
+    {
+      "server": "XXXXXXXXXXXXXXX.com",
+      "email": "XXXXXX@XXXXXXXXXXXXXX.com",
+      "password": "XXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      "server": "XXXXXXXXXXXXXXXXXXXXXXX.com",
+      "email": "XXXXXXX@XXXXXXXXXX.com",
+      "password": "XXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      "server": "XXXXXXXXXXXXXXXXXXXX.com",
+      "email": "XXXXXXXX@XXXXXXXXXXXXXXXX.com",
+      "password": "XXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      "server": "XXXXXXXXXXXXXXXXXXXXX.com",
+      "email": "XXXXXXXXXXX@XXXXXXXXX.net",
+      "password": "XXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ],
+  "imapSendingAccount": {
+    "Username": "XXXXXXXXXX@XXXXXXXXXXXX.com",
+    "Password": "XXXXXXXXXXXXXXXXXXXXX"
+  }
+}

@@ -149,13 +149,16 @@ namespace DmarcTlsReportParser
                 var fullWhois = reader2.ReadToEnd();
 
                 // Step 3: Extract useful fields (OrgName or descr + country)
-                var orgMatch = Regex.Match(fullWhois, @"(?i)(OrgName|descr):\s*(.+)");
+                var orgMatch = Regex.Match(fullWhois, @"(?i)OrgName:\s*(.+)");
+                var descrMatch = Regex.Match(fullWhois, @"(?i)descr:\s*(.+)");
                 var countryMatch = Regex.Match(fullWhois, @"(?i)Country:\s*(.+)");
 
-                var org = orgMatch.Success ? orgMatch.Groups[2].Value.Trim() : "Unknown";
+                string org = orgMatch.Success ? orgMatch.Groups[1].Value.Trim() : null;
+                string descr = descrMatch.Success ? descrMatch.Groups[1].Value.Trim() : null;
+                string name = descr != null && org != null && !org.Contains(descr) ? $"{descr} / {org}" : descr ?? org ?? "Unknown";
                 var country = countryMatch.Success ? countryMatch.Groups[1].Value.Trim() : null;
 
-                return country != null ? $"{org} ({country})" : org;
+                return country != null ? $"{name} ({country})" : name;
             }
             catch (Exception ex)
             {

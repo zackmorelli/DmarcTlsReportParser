@@ -15,11 +15,11 @@ namespace DmarcTlsReportParser
             _outputDir = outputDir;
         }
 
-        public void ClassifyAndParse()
+        public void ClassifyAndParse(IEnumerable<string> filesToParse)
         {
             var dmarcParser = new DmarcParser(_outputDir);
             var tlsRptParser = new TlsRptParser(_outputDir);
-            foreach (var file in Directory.EnumerateFiles(_inputDir, "*.*", SearchOption.AllDirectories))
+            foreach (var file in filesToParse)
             {
                 try
                 {

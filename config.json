@@ -1,4 +1,6 @@
 ﻿{
+  "ServerName": "XXXXXXXXXXXXXXX",
+  "ReceivingEmail": "XXXXXXXXXXXXXX",
   "ReportSavePath": "/XXXXXXXXXXXXXXXXXXXXX",
   "ExtractedReportsPath": "/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "GeneratedSummariesPath": "/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",

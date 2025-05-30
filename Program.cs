@@ -20,12 +20,12 @@ namespace DmarcTlsReportParser
             Console.WriteLine("\nAll mailboxes processed and DMARC and TLS-RPT zip files saved to disk.");
 
             var extractor = new ReportExtractor(config.ReportSavePath, config.ExtractedReportsPath);
-            extractor.ExtractAll();
+            var newlyExtractedFiles = extractor.ExtractAll();
             Console.WriteLine("\nDMARC and TLS-RPT zip files extracted.");
 
             var classifier = new ReportClassifier(config.ExtractedReportsPath, config.GeneratedSummariesPath);
             Console.WriteLine("\nParsing DMARC and TLS-RPT reports...");
-            classifier.ClassifyAndParse();
+            classifier.ClassifyAndParse(newlyExtractedFiles);
 
             Console.WriteLine("\nGenerating email report...");
             var emailBodyBuilder = new ReportEmailBuilder(classifier.ParsedFiles); 
@@ -33,8 +33,8 @@ namespace DmarcTlsReportParser
 
             Console.WriteLine("\nSending email...");
             var emailSender = new ReportEmailSender();
-            string subject = DateTime.Today.ToString("yyyy-MM-dd") + " XXXXXXXXXXXXXXXX DMARC and TLS-RPT Report Summary";
-            await emailSender.SendSummaryEmailAsync(config.ImapSendingAccount, subject, emailBody, "XXXXXXXXXXXXXXXX.com");
+            string subject = DateTime.Today.ToString("yyyy-MM-dd") + " " + config.ServerName + " DMARC and TLS-RPT Report Summary";
+            await emailSender.SendSummaryEmailAsync(config.ImapSendingAccount, subject, emailBody, config.ReceivingEmail, config.ServerName);
 
             Console.WriteLine("Email sent.");
             Console.WriteLine($"Total Execution Time: {stopwatch.Elapsed.TotalSeconds:F2} seconds");

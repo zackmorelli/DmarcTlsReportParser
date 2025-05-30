@@ -8,7 +8,7 @@ namespace DmarcTlsReportParser
     public class ReportEmailSender
     {
 
-        public async Task SendSummaryEmailAsync(EmailAccount sendingAccount, string subject, string htmlBody, string recipient)
+        public async Task SendSummaryEmailAsync(EmailAccount sendingAccount, string subject, string htmlBody, string recipient, string emailServer)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(sendingAccount.Username, sendingAccount.Username));
@@ -22,7 +22,7 @@ namespace DmarcTlsReportParser
             message.Body = bodyBuilder.ToMessageBody();
 
             using var smtp = new SmtpClient();
-            await smtp.ConnectAsync("XXXXXXXXXXXXXXXXXXXXX.com", 465, MailKit.Security.SecureSocketOptions.SslOnConnect);
+            await smtp.ConnectAsync(emailServer, 465, MailKit.Security.SecureSocketOptions.SslOnConnect);
             await smtp.AuthenticateAsync(sendingAccount.Username, sendingAccount.Password);
             await smtp.SendAsync(message);
             await smtp.DisconnectAsync(true);

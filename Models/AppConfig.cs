@@ -2,6 +2,8 @@
 {
     public class AppConfig
     {
+        public string ServerName { get; set; }
+        public string ReceivingEmail { get; set; }
         public string ReportSavePath { get; set; }
         public string ExtractedReportsPath { get; set; }
         public string GeneratedSummariesPath { get; set; }

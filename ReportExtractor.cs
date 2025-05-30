@@ -18,8 +18,10 @@ namespace DmarcTlsReportParser
             _outputDir = outputDir;
         }
 
-        public void ExtractAll()
+        public List<string> ExtractAll()
         {
+            var newlyExtractedFiles = new List<string>();
+
             foreach (var file in Directory.GetFiles(_inputDir))
             {
                 try
@@ -27,19 +29,26 @@ namespace DmarcTlsReportParser
                     var extension = Path.GetExtension(file).ToLowerInvariant();
 
                     if (extension == ".zip")
-                        ExtractZip(file);
+                    {
+                        newlyExtractedFiles.AddRange(ExtractZip(file));
+                    }
                     else if (extension == ".gz")
-                        ExtractGzip(file);
+                    {
+                        newlyExtractedFiles.Add(ExtractGzip(file));
+                    }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Failed to extract {file}: {ex.Message}");
                 }
             }
+
+            return newlyExtractedFiles;
         }
 
-        private void ExtractZip(string zipFilePath)
+        private List<string> ExtractZip(string zipFilePath)
         {
+            var extractedFiles = new List<string>();
             var baseName = Path.GetFileNameWithoutExtension(zipFilePath);
             var extractPath = Path.Combine(_outputDir, baseName);
             Directory.CreateDirectory(extractPath);
@@ -50,10 +59,12 @@ namespace DmarcTlsReportParser
                 var fullPath = Path.Combine(extractPath, entry.Name);
                 entry.ExtractToFile(fullPath, overwrite: true);
                 Console.WriteLine($"Extracted ZIP: {entry.Name}");
+                extractedFiles.Add(fullPath);
             }
+            return extractedFiles;
         }
 
-        private void ExtractGzip(string gzipFilePath)
+        private string ExtractGzip(string gzipFilePath)
         {
             var baseName = Path.GetFileNameWithoutExtension(gzipFilePath); // e.g., report.xml or report.json
             var extractPath = Path.Combine(_outputDir, baseName); // keeps .xml or .json
@@ -64,6 +75,7 @@ namespace DmarcTlsReportParser
             gzip.CopyTo(output);
 
             Console.WriteLine($"Extracted GZ: {Path.GetFileName(extractPath)}");
+            return extractPath;
         }
 
 

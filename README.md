@@ -40,13 +40,13 @@ TLS-RPT Summary
     ```bash
     /opt/dmarc_tls_rpt_report_parser/
 3. Set up the config.json file with:
+  -Full Email server domain name 
   -IMAP account info
   -Paths for ZIP saving, extraction, and parsed output
   -SMTP credentials
+  -Sending email account
 
-4. There are also a few places in the code where the mail server domain needs to be entered. These are denoted with XXXXXXXXX.
-
-5. Set up a cron job to run it daily:
+4. Set up a cron job to run it daily:
    ```bash
    crontab -e
    15 7 * * * dotnet /opt/dmarc_tls_rpt_report_parser/DmarcTlsRptReportParser.dll >> /opt/dmarc_tls_rpt_report_parser/log.txt 2>&1

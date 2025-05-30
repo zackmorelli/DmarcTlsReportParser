@@ -1,7 +1,7 @@
 ﻿{
   "ServerName": "XXXXXXXXXXXXXXX",
   "ReceivingEmail": "XXXXXXXXXXXXXX",
-  "ReportSavePath": "/XXXXXXXXXXXXXXXXXXXXX",
+  "RawZipsPath": "/XXXXXXXXXXXXXXXXXXXXX",
   "ExtractedReportsPath": "/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "GeneratedSummariesPath": "/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "imapRetrievalAccounts": [

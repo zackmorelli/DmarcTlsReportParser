@@ -36,6 +36,7 @@ namespace DmarcTlsReportParser
                     {
                         newlyExtractedFiles.Add(ExtractGzip(file));
                     }
+                    File.Delete(file);
                 }
                 catch (Exception ex)
                 {

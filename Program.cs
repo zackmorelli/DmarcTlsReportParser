@@ -13,13 +13,13 @@ namespace DmarcTlsReportParser
             foreach (var account in config.ImapRetrievalAccounts)
             {
                 Console.WriteLine($"Checking {account.Email} for unread DMARC and TLS-RPT zip files...");
-                var downloader = new EmailDownloader(account, config.ReportSavePath);
+                var downloader = new EmailDownloader(account, config.RawZipsPath);
                 await downloader.ProcessMailboxAsync();
             }
 
             Console.WriteLine("\nAll mailboxes processed and DMARC and TLS-RPT zip files saved to disk.");
 
-            var extractor = new ReportExtractor(config.ReportSavePath, config.ExtractedReportsPath);
+            var extractor = new ReportExtractor(config.RawZipsPath, config.ExtractedReportsPath);
             var newlyExtractedFiles = extractor.ExtractAll();
             Console.WriteLine("\nDMARC and TLS-RPT zip files extracted.");
 
@@ -28,7 +28,10 @@ namespace DmarcTlsReportParser
             classifier.ClassifyAndParse(newlyExtractedFiles);
 
             Console.WriteLine("\nGenerating email report...");
-            var emailBodyBuilder = new ReportEmailBuilder(classifier.ParsedFiles); 
+            var today = DateTime.Now.ToString("yyyy-MM-dd");
+            var todaySummaryDir = Path.Combine(config.GeneratedSummariesPath, today);
+            var todaysFiles = Directory.GetFiles(todaySummaryDir, "*.json");
+            var emailBodyBuilder = new ReportEmailBuilder(todaysFiles.ToList()); 
             string emailBody = emailBodyBuilder.BuildHtmlSummary();
 
             Console.WriteLine("\nSending email...");

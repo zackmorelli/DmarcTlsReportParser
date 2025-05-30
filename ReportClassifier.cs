@@ -9,10 +9,12 @@ namespace DmarcTlsReportParser
 
         public List<string> ParsedFiles { get; private set; } = new();
 
-        public ReportClassifier(string inputDir, string outputDir)
+        public ReportClassifier(string inputDir, string baseOutputDir)
         {
             _inputDir = inputDir;
-            _outputDir = outputDir;
+            var today = DateTime.Now.ToString("yyyy-MM-dd");
+            _outputDir = Path.Combine(baseOutputDir, today);
+            Directory.CreateDirectory(_outputDir);
         }
 
         public void ClassifyAndParse(IEnumerable<string> filesToParse)
